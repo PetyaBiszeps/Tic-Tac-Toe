@@ -4,13 +4,13 @@ import { players } from './Constants.ts';
 </script>
 
 <template>
-  <h1>{{GameView.handleMessage()}}</h1>
+  <h1>{{ GameView.handleMessage() }}</h1>
 
   <div>
     <div class="gameField">
       <div class="wrapper">
         <div v-for="(value, key) in GameView.boardState.value" :key="key" class="cell" @click="GameView.handleClick(key)">
-          {{value === players.p1.value ? 'X' : value === players.p2.value ? 'O' : '' }}
+          {{ value === players.p1.value ? 'X' : value === players.p2.value ? 'O' : '' }}
         </div>
       </div>
     </div>
