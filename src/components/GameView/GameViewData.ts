@@ -1,5 +1,6 @@
 import { players, result } from '@/components/GameView/Constants.ts'
 import { ref, watch } from 'vue';
+import router from "@/router";
 
 class GameViewData {
   player = ref(Math.random() < 0.5 ? players.p1.value : players.p2.value);
@@ -46,6 +47,23 @@ class GameViewData {
     if(this.boardState.value.cA && this.boardState.value.cA === this.boardState.value.bB && this.boardState.value.cA === this.boardState.value.aC) this.isGameOver.value = this.player.value;
   }
 
+  handleReset = ()=> {
+    this.boardState.value = {
+      aA: '',
+      aB: '',
+      aC: '',
+      bA: '',
+      bB: '',
+      bC: '',
+      cA: '',
+      cB: '',
+      cC: '',
+    };
+
+    this.player = ref(Math.random() < 0.5 ? players.p1.value : players.p2.value);
+    this.isGameOver.value = '';
+  };
+
   handleClick = (key: 'aA' | 'aB' | 'aC' | 'bA' | 'bB' | 'bC' | 'cA' | 'cB' | 'cC') => {
     if(this.isGameOver.value) return;
     if(this.boardState.value[key] !== '') return;
@@ -61,6 +79,11 @@ class GameViewData {
     if(this.isGameOver.value === players.p1.value || this.isGameOver.value === players.p2.value) return result.winner(this.player.value);
 
     return `It is ${this.player.value === players.p1.value ? players.p1.value : players.p2.value} turn`;
+  };
+
+  handleQuit = async () => {
+    this.handleReset();
+    await router.push('/');
   };
 }
 

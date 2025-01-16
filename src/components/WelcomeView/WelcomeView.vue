@@ -47,6 +47,7 @@ input {
 
 button {
   display: block;
+  cursor: pointer;
   font-weight: bold;
   color: var(--text);
   font-size: 1.25rem;
